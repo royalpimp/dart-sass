@@ -3,9 +3,9 @@
 // https://opensource.org/licenses/MIT.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io' as io;
 
-import 'package:dart2_constant/convert.dart' as convert;
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
@@ -27,14 +27,14 @@ String readFile(String path) {
   var bytes = new io.File(path).readAsBytesSync();
 
   try {
-    return convert.utf8.decode(bytes);
+    return utf8.decode(bytes);
   } on FormatException catch (error) {
-    var decodedUntilError = convert.utf8
-        .decode(bytes.sublist(0, error.offset), allowMalformed: true);
+    var decodedUntilError =
+        utf8.decode(bytes.sublist(0, error.offset), allowMalformed: true);
     var stringOffset = decodedUntilError.length;
     if (decodedUntilError.endsWith("�")) stringOffset--;
 
-    var decoded = convert.utf8.decode(bytes, allowMalformed: true);
+    var decoded = utf8.decode(bytes, allowMalformed: true);
     var sourceFile = new SourceFile.fromString(decoded, url: p.toUri(path));
     throw new SassException(
         "Invalid UTF-8.", sourceFile.location(stringOffset).pointSpan());

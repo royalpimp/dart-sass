@@ -2,7 +2,8 @@
 // MIT-style license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-import 'package:dart2_constant/convert.dart' as convert;
+import 'dart:convert.dart';
+
 import 'package:test/test.dart';
 
 /// A regular expression for matching the URL in a source map comment.
@@ -18,5 +19,5 @@ Map<String, Object> embeddedSourceMap(String css) {
   var match = _sourceMapCommentRegExp.firstMatch(css);
   var data = Uri.parse(match[1]).data;
   expect(data.mimeType, equals("application/json"));
-  return convert.json.decode(data.contentAsString()) as Map<String, Object>;
+  return json.decode(data.contentAsString()) as Map<String, Object>;
 }

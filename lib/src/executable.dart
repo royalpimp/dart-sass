@@ -3,9 +3,9 @@
 // https://opensource.org/licenses/MIT.
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:isolate';
 
-import 'package:dart2_constant/convert.dart' as convert;
 import 'package:path/path.dart' as p;
 import 'package:source_maps/source_maps.dart';
 import 'package:stack_trace/stack_trace.dart';
@@ -143,8 +143,8 @@ String _writeSourceMap(ExecutableOptions options, SingleMapping sourceMap) {
 
     sourceMap.urls[i] = options.sourceMapUrl(Uri.parse(url)).toString();
   }
-  var sourceMapText = convert.json
-      .encode(sourceMap.toJson(includeSourceContents: options.embedSources));
+  var sourceMapText =
+      jsonEncode(sourceMap.toJson(includeSourceContents: options.embedSources));
 
   Uri url;
   if (options.embedSourceMap) {
