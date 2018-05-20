@@ -1,3 +1,8 @@
+## 1.4.0
+
+* Add `Importer.modificationTime()` and `AsyncImporter.modificationTime()` which
+  report the last time a stylesheet was modified.
+
 ## 1.3.2
 
 * Add support for `@elseif` as an alias of `@else if`. This is not an

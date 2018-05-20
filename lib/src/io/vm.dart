@@ -56,3 +56,11 @@ bool dirExists(String path) => new io.Directory(path).existsSync();
 
 void ensureDir(String path) =>
     new io.Directory(path).createSync(recursive: true);
+
+DateTime modificationTime(String path) {
+  var stat = io.FileStat.statSync(path);
+  if (stat.type == io.FileSystemEntityType.NOT_FOUND) {
+    throw new io.FileSystemException("File not found.", path);
+  }
+  return stat.modified;
+}

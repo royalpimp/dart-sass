@@ -65,5 +65,8 @@ bool dirExists(String path) => null;
 /// necessary.
 void ensureDir(String path) => null;
 
+/// Returns the modification time of the file at [path].
+DateTime modificationTime(String path) => null;
+
 /// Gets and sets the exit code that the process will use when it exits.
 int exitCode;

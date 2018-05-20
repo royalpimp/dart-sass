@@ -18,6 +18,7 @@ class _FS {
   external void writeFileSync(String path, String data);
   external bool existsSync(String path);
   external void mkdirSync(String path);
+  external _Stat statSync(String path);
 }
 
 @JS()
@@ -44,6 +45,11 @@ class _SystemError {
 class _Process {
   external String get platform;
   external String cwd();
+}
+
+@JS()
+class _Stat {
+  external DateTime get mtime;
 }
 
 class FileSystemException {
@@ -152,6 +158,9 @@ void ensureDir(String path) {
     }
   });
 }
+
+DateTime modificationTime(String path) =>
+    _systemErrorToFileSystemException(() => _fs.statSync(path).mtime);
 
 /// Runs callback and converts any [_SystemError]s it throws into
 /// [FileSystemException]s.
